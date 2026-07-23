@@ -673,7 +673,7 @@
         <a href="#how-to-buy">How To Buy</a>
         <a href="#tokenomics">Tokenomics</a>
         <a href="#community">Community</a>
-        <a class="nav-cta" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0xcomingsoon" target="_blank" rel="noopener noreferrer">Buy DIH</a>
+        <a class="nav-cta" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x20be23abf00918f594eb1b65e5f6be9baa118525" target="_blank" rel="noopener noreferrer">Buy DIH</a>
       </nav>
     </div>
   </header>
@@ -720,9 +720,9 @@
           </article>
           <aside class="stat-stack">
             <div class="panel stat stat--main">
-              <div class="label">Wallets holding DIH</div>
-              <div class="value" id="holder-count">105,478</div>
-              <div class="sub" id="holder-sub">of 3,832,022 wallets · 2.8%</div>
+              <div class="label">Wallets now holding this dih</div>
+              <div class="value" id="holder-count">—</div>
+              <div class="sub" id="holder-sub">loading live count…</div>
               <div class="progress" aria-hidden="true"><i id="holder-bar"></i></div>
             </div>
             <div class="panel stat">
@@ -794,13 +794,13 @@
           <div class="fact">
             <span>Contract</span>
             <div class="copy-row">
-              <span class="ca" id="contract-addr">0xcomingsoon</span>
-              <button type="button" class="copy-btn" id="copy-ca" data-ca="0xcomingsoon">Copy</button>
+              <span class="ca" id="contract-addr">0x20be23abf00918f594eb1b65e5f6be9baa118525</span>
+              <button type="button" class="copy-btn" id="copy-ca" data-ca="0x20be23abf00918f594eb1b65e5f6be9baa118525">Copy</button>
             </div>
           </div>
           <div class="fact">
             <span>Explorer</span>
-            <a class="val" href="https://robinhoodchain.blockscout.com/0xcomingsoon" target="_blank" rel="noopener noreferrer">Blockscout ↗</a>
+            <a class="val" href="https://robinhoodchain.blockscout.com/0x20be23abf00918f594eb1b65e5f6be9baa118525" target="_blank" rel="noopener noreferrer">Blockscout ↗</a>
           </div>
         </div>
       </div>
@@ -819,7 +819,7 @@
             <h3>Twitter / X</h3>
             <p>Announcements, holder milestones, and peak dih posting.</p>
           </a>
-          <a class="panel social dc" href="https://dexscreener.com/robinhood/0xcomingsoon" target="_blank" rel="noopener noreferrer">
+          <a class="panel social dc" href="https://dexscreener.com/robinhood/0x20be23abf00918f594eb1b65e5f6be9baa118525" target="_blank" rel="noopener noreferrer">
             <div class="icon">
               <img src="dexscreener.png" alt="Dexscreener" width="36" height="36" />
             </div>
@@ -832,7 +832,7 @@
             <h3>Everyone will hold this dih</h3>
             <p>Don’t just watch the counter — be part of the bag.</p>
           </div>
-          <a class="btn-primary" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0xcomingsoon" target="_blank" rel="noopener noreferrer">Buy DIH now</a>
+          <a class="btn-primary" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0x20be23abf00918f594eb1b65e5f6be9baa118525" target="_blank" rel="noopener noreferrer">Buy DIH now</a>
         </div>
       </div>
     </section>
@@ -848,7 +848,10 @@
 
   <script>
     (function () {
-      var TOTAL = 3832022;
+      var LIVE = "https://holdthisdih.xyz";
+      var total = 3845153;
+      var current = 0;
+      var raf = null;
       var countEl = document.getElementById("holder-count");
       var subEl = document.getElementById("holder-sub");
       var barEl = document.getElementById("holder-bar");
@@ -857,25 +860,113 @@
         return Number(n).toLocaleString("en-US");
       }
 
-      function render(n) {
-        var pct = (n / TOTAL) * 100;
+      function paint(n) {
+        var pct = total > 0 ? (n / total) * 100 : 0;
         countEl.textContent = format(n);
-        subEl.textContent = format(n) + " of " + format(TOTAL) + " wallets · " + pct.toFixed(1) + "%";
-        barEl.style.width = pct.toFixed(4) + "%";
+        countEl.setAttribute("aria-label", format(n) + " holders");
+        subEl.textContent = format(n) + " of " + format(total) + " wallets · " + pct.toFixed(1) + "%";
+        barEl.style.width = Math.min(100, pct).toFixed(4) + "%";
+      }
+
+      function animateTo(next) {
+        if (raf) cancelAnimationFrame(raf);
+        var from = current;
+        if (next === from) {
+          paint(next);
+          return;
+        }
+        current = next;
+        var start = performance.now();
+        function tick(now) {
+          var t = Math.min(1, (now - start) / 700);
+          var eased = 1 - Math.pow(1 - t, 3);
+          paint(Math.round(from + (next - from) * eased));
+          if (t < 1) raf = requestAnimationFrame(tick);
+        }
+        raf = requestAnimationFrame(tick);
+      }
+
+      function applyCount(n) {
+        if (typeof n !== "number" || !isFinite(n)) return;
+        animateTo(n);
+      }
+
+      async function fetchJson(url) {
+        var res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error("bad status");
+        return res.json();
       }
 
       async function refresh() {
+        var urls = ["/api/holders", LIVE + "/api/holders"];
+        for (var i = 0; i < urls.length; i++) {
+          try {
+            var data = await fetchJson(urls[i]);
+            if (typeof data.count === "number") {
+              applyCount(data.count);
+              return;
+            }
+          } catch (e) {}
+        }
+      }
+
+      async function refreshTotal() {
         try {
-          var res = await fetch("api/holders/index.json", { cache: "no-store" });
-          if (!res.ok) throw new Error("offline");
-          var data = await res.json();
-          if (typeof data.count === "number") render(data.count);
+          var meta = await fetchJson("/api/meta");
+          if (typeof meta.total === "number" && meta.total > 0) {
+            total = meta.total;
+            paint(current || Number(String(countEl.textContent).replace(/,/g, "")) || 0);
+          }
         } catch (e) {}
       }
 
-      render(105478);
+      function connectStream() {
+        var sources = ["/api/holders/stream", LIVE + "/api/holders/stream"];
+        var idx = 0;
+
+        function open() {
+          if (idx >= sources.length) {
+            setTimeout(function () {
+              idx = 0;
+              open();
+            }, 5000);
+            return;
+          }
+          var url = sources[idx++];
+          var es;
+          try {
+            es = new EventSource(url);
+          } catch (e) {
+            open();
+            return;
+          }
+          var gotMessage = false;
+          es.onmessage = function (ev) {
+            gotMessage = true;
+            try {
+              var data = JSON.parse(ev.data);
+              if (typeof data.count === "number") applyCount(data.count);
+            } catch (e) {}
+          };
+          es.onerror = function () {
+            es.close();
+            if (!gotMessage) open();
+            else {
+              setTimeout(function () {
+                idx = 0;
+                open();
+              }, 3000);
+            }
+          };
+        }
+        open();
+      }
+
       refresh();
+      refreshTotal();
+      connectStream();
       setInterval(refresh, 20000);
+      setInterval(refreshTotal, 120000);
 
       var btn = document.getElementById("copy-ca");
       btn.addEventListener("click", async function () {
