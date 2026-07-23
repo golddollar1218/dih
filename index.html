@@ -32,16 +32,22 @@
       --ink: #3a2a1e;
       --fg: #2b2016;
       --muted: #6f5b48;
-      --cream: #fff8f0;
+      --faint: #9a7b5f;
       --yellow: #ffe14d;
       --sky-top: #6ec6ff;
       --sky-mid: #8fd4ff;
       --grass-top: #bfe6a8;
       --grass: #6cc24a;
       --grass-deep: #55a832;
+      --panel: #fffdf9;
       --font: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
       --mono: "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
-      --max: 1120px;
+      --max: 1080px;
+      --gutter: clamp(1rem, 3.5vw, 1.75rem);
+      --section-y: clamp(3.25rem, 7vw, 5rem);
+      --radius: 20px;
+      --stroke: 3.5px solid var(--ink);
+      --lift: 0 7px 0 -1px rgba(58, 42, 30, 0.22);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -52,59 +58,31 @@
       color: var(--fg);
       background: var(--sky-top);
       overflow-x: hidden;
+      line-height: 1.45;
     }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
-    button, .btn {
-      font: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
 
     .sky {
       position: fixed;
       inset: 0;
       z-index: -2;
-      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 42%, var(--grass-top) 68%, var(--grass) 100%);
+      background:
+        radial-gradient(ellipse 80% 45% at 50% -10%, rgba(255,255,255,0.45), transparent 60%),
+        linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 38%, var(--grass-top) 72%, var(--grass) 100%);
     }
     .grass {
       position: fixed;
       left: 0; right: 0; bottom: 0;
-      height: 22%;
+      height: min(18vh, 160px);
       z-index: -1;
-      background: linear-gradient(180deg, transparent, rgba(85,168,50,0.35) 30%, var(--grass-deep));
+      background: linear-gradient(180deg, transparent, rgba(85,168,50,0.25) 40%, var(--grass-deep));
       pointer-events: none;
-    }
-    .cloud {
-      position: fixed;
-      z-index: -1;
-      width: 120px;
-      height: 48px;
-      background: rgba(255,255,255,0.55);
-      border-radius: 999px;
-      filter: blur(1px);
-      animation: drift 28s linear infinite;
-      opacity: 0.7;
-    }
-    .cloud::before, .cloud::after {
-      content: "";
-      position: absolute;
-      background: inherit;
-      border-radius: 50%;
-    }
-    .cloud::before { width: 56px; height: 56px; top: -28px; left: 18px; }
-    .cloud::after { width: 70px; height: 70px; top: -36px; left: 48px; }
-    .cloud-a { top: 12%; left: -10%; animation-duration: 36s; }
-    .cloud-b { top: 22%; left: 40%; width: 90px; animation-duration: 42s; animation-delay: -12s; }
-    .cloud-c { top: 8%; left: 70%; width: 140px; animation-duration: 48s; animation-delay: -20s; }
-    @keyframes drift {
-      from { transform: translateX(0); }
-      to { transform: translateX(40vw); }
     }
 
     .wrap {
-      width: min(100% - 2rem, var(--max));
+      width: min(100% - (var(--gutter) * 2), var(--max));
       margin-inline: auto;
     }
 
@@ -113,314 +91,351 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(10px);
-      background: rgba(110, 198, 255, 0.55);
-      border-bottom: 3px solid rgba(58,42,30,0.12);
+      backdrop-filter: blur(12px) saturate(1.1);
+      background: rgba(110, 198, 255, 0.62);
+      border-bottom: 2px solid rgba(58, 42, 30, 0.1);
     }
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.75rem 0;
+      min-height: 64px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.6rem;
       font-weight: 900;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       letter-spacing: -0.03em;
       color: #fff;
       text-shadow: 0 2px 0 var(--ink);
+      flex: none;
     }
     .brand img {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       border: 3px solid #fff;
       outline: 2px solid var(--ink);
-      animation: bob 3.4s ease-in-out infinite;
+      object-fit: cover;
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 0.15rem 1.1rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 0.15rem 1.25rem;
     }
     .nav-links a {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--ink);
-      opacity: 0.85;
-      transition: opacity 160ms ease, transform 160ms ease;
+      opacity: 0.8;
+      transition: opacity 150ms ease;
+      white-space: nowrap;
     }
-    .nav-links a:hover { opacity: 1; transform: translateY(-1px); }
+    .nav-links a:hover { opacity: 1; }
     .nav-cta {
       display: inline-flex;
       align-items: center;
-      padding: 0.45rem 0.9rem;
+      padding: 0.5rem 1rem;
       background: var(--pink);
       color: #fff !important;
       border: 3px solid var(--ink);
       border-radius: 999px;
       box-shadow: 0 3px 0 var(--ink);
       opacity: 1 !important;
+      transition: transform 150ms ease;
     }
     .nav-cta:hover { transform: translateY(-2px); }
 
     /* HERO */
     .hero {
-      min-height: calc(100dvh - 72px);
       display: grid;
       place-items: center;
-      padding: clamp(1.5rem, 4vh, 3rem) 0 clamp(2.5rem, 6vh, 4rem);
+      min-height: clamp(560px, 88dvh, 820px);
+      padding: clamp(2rem, 5vh, 3.5rem) 0 clamp(3rem, 7vh, 4.5rem);
       text-align: center;
     }
+    .hero-inner {
+      width: min(100%, 640px);
+      display: grid;
+      justify-items: center;
+      gap: 0;
+    }
     .hero-mascot {
-      width: clamp(120px, 22vw, 188px);
+      width: clamp(112px, 18vw, 160px);
       aspect-ratio: 1;
-      margin: 0 auto 1rem;
+      margin-bottom: 1.1rem;
       border-radius: 50%;
       object-fit: cover;
       border: 6px solid #fff;
       outline: 4px solid var(--ink);
-      box-shadow: 0 16px 32px -14px rgba(0,0,0,0.45);
+      box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.4);
       animation: bob 3.4s ease-in-out infinite;
     }
     @keyframes bob {
       0%, 100% { transform: translateY(0) rotate(-1.5deg); }
-      50% { transform: translateY(-10px) rotate(1.5deg); }
+      50% { transform: translateY(-9px) rotate(1.5deg); }
     }
     .hero-brand {
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.28em;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--ink);
-      margin: 0 0 0.55rem;
+      margin: 0 0 0.65rem;
       opacity: 0;
-      animation: rise 700ms ease forwards 120ms;
+      animation: rise 650ms ease forwards 100ms;
     }
     .hero h1 {
       margin: 0;
-      font-size: clamp(2.4rem, 9vw, 5rem);
+      font-size: clamp(2.35rem, 8.5vw, 4.6rem);
       font-weight: 900;
       letter-spacing: -0.045em;
-      line-height: 0.92;
+      line-height: 0.94;
       color: #fff;
       text-shadow:
         0 3px 0 var(--ink),
         0 4px 0 var(--ink),
         0 5px 0 var(--ink),
-        0 14px 24px rgba(0,0,0,0.22);
+        0 14px 22px rgba(0, 0, 0, 0.2);
       opacity: 0;
-      animation: rise 700ms ease forwards 220ms;
+      animation: rise 650ms ease forwards 180ms;
     }
     .hero h1 span {
       display: inline-block;
       background: var(--pink);
-      color: #fff;
       border: 4px solid var(--ink);
-      border-radius: 16px;
-      padding: 0 0.28em 0.04em;
+      border-radius: 14px;
+      padding: 0 0.26em 0.02em;
       transform: rotate(-3deg);
       box-shadow: 0 5px 0 var(--ink);
-      margin-left: 0.12em;
+      margin-left: 0.1em;
     }
     .hero-lead {
-      max-width: 34rem;
-      margin: 1.1rem auto 0;
-      font-size: clamp(1rem, 2.4vw, 1.15rem);
+      max-width: 32rem;
+      margin: 1.15rem 0 0;
+      font-size: clamp(0.98rem, 2.1vw, 1.1rem);
       font-weight: 600;
-      line-height: 1.45;
       color: var(--fg);
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(3px);
-      border: 2px solid rgba(58,42,30,0.22);
+      background: rgba(255, 255, 255, 0.76);
+      backdrop-filter: blur(4px);
+      border: 2px solid rgba(58, 42, 30, 0.2);
       border-radius: 16px;
-      padding: 0.85rem 1.2rem;
+      padding: 0.9rem 1.2rem;
       text-wrap: balance;
       opacity: 0;
-      animation: rise 700ms ease forwards 340ms;
+      animation: rise 650ms ease forwards 280ms;
     }
     .hero-lead b { color: var(--pink-deep); }
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.75rem;
       justify-content: center;
-      margin-top: 1.35rem;
+      margin-top: 1.4rem;
       opacity: 0;
-      animation: rise 700ms ease forwards 460ms;
+      animation: rise 650ms ease forwards 380ms;
     }
     .btn-primary, .btn-ghost {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.85rem 1.35rem;
+      min-height: 48px;
+      padding: 0.75rem 1.35rem;
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       border-radius: 999px;
       border: 3px solid var(--ink);
-      transition: transform 160ms ease, box-shadow 160ms ease;
+      transition: transform 150ms ease;
     }
     .btn-primary {
       background: var(--yellow);
       color: var(--ink);
-      box-shadow: 0 5px 0 var(--ink);
+      box-shadow: 0 4px 0 var(--ink);
     }
     .btn-ghost {
       background: #fff;
       color: var(--ink);
-      box-shadow: 0 5px 0 rgba(58,42,30,0.25);
+      box-shadow: 0 4px 0 rgba(58, 42, 30, 0.22);
     }
-    .btn-primary:hover, .btn-ghost:hover {
-      transform: translateY(-3px);
-    }
+    .btn-primary:hover, .btn-ghost:hover { transform: translateY(-2px); }
     @keyframes rise {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* SECTIONS */
-    section.block {
-      padding: clamp(3.5rem, 8vh, 5.5rem) 0;
+    .block {
+      padding: var(--section-y) 0;
+      scroll-margin-top: 72px;
+    }
+    .block--band {
+      background: rgba(255, 253, 249, 0.28);
+      border-block: 2px solid rgba(58, 42, 30, 0.08);
     }
     .block-head {
+      max-width: 36rem;
+      margin: 0 auto clamp(1.75rem, 4vw, 2.35rem);
       text-align: center;
-      max-width: 40rem;
-      margin: 0 auto 2rem;
     }
     .eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #9a7b5f;
+      display: inline-block;
       margin: 0 0 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--yellow);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 0.28rem 0.7rem;
     }
     .block-head h2 {
       margin: 0;
-      font-size: clamp(1.85rem, 5vw, 2.75rem);
+      font-size: clamp(1.75rem, 4.5vw, 2.55rem);
       font-weight: 900;
       letter-spacing: -0.04em;
-      line-height: 1.05;
+      line-height: 1.08;
       color: #fff;
-      text-shadow: 0 3px 0 var(--ink), 0 10px 18px rgba(0,0,0,0.18);
+      text-shadow: 0 3px 0 var(--ink), 0 8px 16px rgba(0, 0, 0, 0.14);
     }
-    .block-head p {
-      margin: 0.75rem auto 0;
-      font-size: 1.02rem;
+    .block-head > p {
+      margin: 0.7rem 0 0;
+      font-size: 1rem;
       font-weight: 600;
-      line-height: 1.45;
       color: var(--fg);
       text-wrap: balance;
-      background: rgba(255,255,255,0.65);
-      border: 2px solid rgba(58,42,30,0.18);
-      border-radius: 14px;
-      padding: 0.7rem 1rem;
-      display: inline-block;
+      opacity: 0.92;
     }
 
     .panel {
-      background: #fff;
-      border: 4px solid var(--ink);
-      border-radius: 22px;
-      padding: clamp(1.2rem, 3vw, 1.75rem);
-      box-shadow: 0 8px 0 -2px rgba(58,42,30,0.28);
+      background: var(--panel);
+      border: var(--stroke);
+      border-radius: var(--radius);
+      padding: clamp(1.15rem, 2.5vw, 1.55rem);
+      box-shadow: var(--lift);
     }
 
-    /* ABOUT */
-    .about-grid {
+    /* ABOUT — 12-col style split */
+    .about-layout {
       display: grid;
-      gap: 1rem;
-      grid-template-columns: 1fr;
+      gap: 1.1rem;
+      align-items: stretch;
     }
-    @media (min-width: 860px) {
-      .about-grid { grid-template-columns: 1.15fr 0.85fr; align-items: stretch; }
+    @media (min-width: 900px) {
+      .about-layout {
+        grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.9fr);
+        gap: 1.25rem;
+      }
+    }
+    .about-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.85rem;
+      min-height: 100%;
     }
     .about-copy h3 {
-      margin: 0 0 0.7rem;
-      font-size: 1.35rem;
+      margin: 0;
+      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
       font-weight: 900;
       letter-spacing: -0.03em;
     }
     .about-copy p {
-      margin: 0 0 0.85rem;
-      font-size: 0.98rem;
-      line-height: 1.5;
+      margin: 0;
+      font-size: 0.97rem;
       font-weight: 500;
       color: var(--muted);
+      max-width: 38rem;
     }
-    .about-copy p:last-child { margin-bottom: 0; }
     .about-copy b { color: var(--pink-deep); }
-    .stat-stack { display: grid; gap: 0.85rem; align-content: start; }
-    .stat {
-      text-align: center;
-      padding: 1rem 0.75rem;
+
+    .stat-stack {
+      display: grid;
+      gap: 1.1rem;
+      grid-template-rows: 1fr auto;
     }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 1.35rem 1rem;
+      min-height: 0;
+    }
+    .stat--main { min-height: 220px; }
     .stat .label {
       font-family: var(--mono);
       font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #9a7b5f;
+      color: var(--faint);
     }
     .stat .value {
-      margin-top: 0.35rem;
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      margin-top: 0.45rem;
+      font-size: clamp(2.2rem, 5.5vw, 3rem);
       font-weight: 900;
       color: var(--pink-deep);
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
+    .stat .value--sm { font-size: clamp(1.35rem, 3vw, 1.65rem); letter-spacing: -0.02em; }
     .stat .sub {
-      margin-top: 0.45rem;
+      margin-top: 0.55rem;
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--muted);
     }
     .progress {
-      height: 14px;
+      height: 12px;
       border-radius: 999px;
       background: #f0e7dd;
-      border: 3px solid var(--ink);
+      border: 2.5px solid var(--ink);
       overflow: hidden;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
     }
     .progress > i {
       display: block;
       height: 100%;
       width: 2.8%;
-      background: repeating-linear-gradient(45deg, #ff4f87 0 12px, #ff7aa6 12px 24px);
-      transition: width 900ms cubic-bezier(0.16,1,0.3,1);
+      background: repeating-linear-gradient(45deg, #ff4f87 0 10px, #ff7aa6 10px 20px);
+      transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* HOW TO BUY */
+    /* HOW TO BUY — responsive flow */
     .steps {
       list-style: none;
       margin: 0;
       padding: 0;
       display: grid;
-      gap: 0.9rem;
-      counter-reset: buy;
+      gap: 1rem;
+      grid-template-columns: 1fr;
     }
-    @media (min-width: 820px) {
-      .steps { grid-template-columns: repeat(4, 1fr); }
+    @media (min-width: 640px) {
+      .steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 980px) {
+      .steps { grid-template-columns: repeat(4, 1fr); gap: 0.95rem; }
     }
     .steps li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      height: 100%;
+      min-height: 100%;
       position: relative;
-      padding-top: 0.25rem;
     }
     .steps .num {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
       display: grid;
       place-items: center;
@@ -429,110 +444,67 @@
       font-size: 0.95rem;
       background: var(--yellow);
       border: 3px solid var(--ink);
-      margin-bottom: 0.75rem;
+      flex: none;
     }
     .steps h3 {
-      margin: 0 0 0.4rem;
+      margin: 0;
       font-size: 1.05rem;
       font-weight: 900;
       letter-spacing: -0.02em;
     }
     .steps p {
       margin: 0;
-      font-size: 0.9rem;
-      line-height: 1.45;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--muted);
+      flex: 1;
     }
 
     /* TOKENOMICS */
-    .tok-grid {
-      display: grid;
-      gap: 1rem;
-    }
-    @media (min-width: 860px) {
-      .tok-grid { grid-template-columns: 1fr 1fr; }
-    }
-    .pie-wrap {
-      display: grid;
-      place-items: center;
-      gap: 1.25rem;
-      padding: 1rem 0.5rem;
-    }
-    .pie {
-      width: min(100%, 260px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      border: 5px solid var(--ink);
-      background: conic-gradient(
-        #ff4f87 0 40%,
-        #ffe14d 40% 65%,
-        #6ec6ff 65% 85%,
-        #55a832 85% 100%
-      );
-      box-shadow: 0 10px 0 -2px rgba(58,42,30,0.2);
-      animation: spinIn 1.1s cubic-bezier(0.16,1,0.3,1) both;
-    }
-    @keyframes spinIn {
-      from { transform: rotate(-40deg) scale(0.92); opacity: 0; }
-      to { transform: rotate(0) scale(1); opacity: 1; }
-    }
-    .legend {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 0.55rem;
-      width: min(100%, 280px);
-    }
-    .legend li {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-    .legend .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 4px;
-      border: 2px solid var(--ink);
-      margin-right: 0.5rem;
-      flex: none;
-    }
-    .legend .left { display: flex; align-items: center; }
-    .legend .pct { font-family: var(--mono); color: var(--pink-deep); }
     .tok-facts {
-      display: grid;
-      gap: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+      padding-block: 0.35rem;
+    }
+    .tok-facts--solo {
+      max-width: 640px;
+      margin-inline: auto;
+      width: 100%;
     }
     .fact {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      padding: 0.85rem 0;
-      border-bottom: 2px dashed rgba(58,42,30,0.15);
+      display: grid;
+      grid-template-columns: minmax(96px, 34%) 1fr;
+      align-items: center;
+      gap: 0.75rem 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 2px dashed rgba(58, 42, 30, 0.14);
     }
     .fact:last-child { border-bottom: none; }
-    .fact span:first-child {
+    .fact > span:first-child {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #9a7b5f;
+      color: var(--faint);
     }
-    .fact span:last-child {
+    .fact .val {
       font-weight: 800;
       font-size: 0.98rem;
       text-align: right;
+      justify-self: end;
       word-break: break-all;
+    }
+    .fact a.val {
+      color: var(--pink-deep);
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
     .ca {
       font-family: var(--mono);
-      font-size: 0.78rem !important;
+      font-size: 0.8rem;
       color: var(--pink-deep);
     }
     .copy-row {
@@ -544,104 +516,108 @@
     }
     .copy-btn {
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.35rem 0.55rem;
+      padding: 0.4rem 0.6rem;
       border: 2px solid var(--ink);
       border-radius: 8px;
       background: var(--yellow);
+      flex: none;
     }
 
     /* COMMUNITY */
     .social-grid {
       display: grid;
-      gap: 0.9rem;
+      gap: 1rem;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 700px) {
-      .social-grid { grid-template-columns: repeat(3, 1fr); }
+    @media (min-width: 640px) {
+      .social-grid { grid-template-columns: repeat(2, 1fr); max-width: 720px; margin-inline: auto; }
     }
     .social {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      min-height: 100%;
-      transition: transform 180ms ease;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 0.9rem;
+      row-gap: 0.25rem;
+      align-items: start;
+      transition: transform 160ms ease;
+      min-height: 118px;
     }
-    .social:hover { transform: translateY(-4px); }
+    .social:hover { transform: translateY(-3px); }
     .social .icon {
-      width: 44px;
-      height: 44px;
+      grid-row: 1 / span 2;
+      width: 48px;
+      height: 48px;
       border-radius: 14px;
       border: 3px solid var(--ink);
       display: grid;
       place-items: center;
       font-weight: 900;
-      font-size: 1.05rem;
-      background: var(--yellow);
+      font-size: 1.1rem;
+      background: #fff;
+      align-self: center;
     }
-    .social.x .icon { background: #fff; }
-    .social.tg .icon { background: #6ec6ff; }
     .social.dc .icon { background: #ff7aa6; color: #fff; }
     .social h3 {
       margin: 0;
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 900;
+      align-self: end;
     }
     .social p {
       margin: 0;
-      flex: 1;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      grid-column: 2;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--muted);
+      align-self: start;
     }
     .social .go {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--pink-deep);
+      display: none;
     }
 
     .cta-banner {
       margin-top: 1.25rem;
-      text-align: center;
-      padding: 1.5rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 1.5rem;
+      padding: 1.35rem 1.5rem;
       background: linear-gradient(135deg, #ff4f87, #ff7aa6);
-      border: 4px solid var(--ink);
-      border-radius: 22px;
-      box-shadow: 0 8px 0 -2px rgba(58,42,30,0.28);
+      border: var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--lift);
       color: #fff;
     }
+    .cta-banner .copy { max-width: 28rem; }
     .cta-banner h3 {
       margin: 0;
-      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
       font-weight: 900;
       letter-spacing: -0.03em;
-      text-shadow: 0 2px 0 rgba(58,42,30,0.35);
+      text-shadow: 0 2px 0 rgba(58, 42, 30, 0.3);
     }
     .cta-banner p {
-      margin: 0.5rem 0 1rem;
+      margin: 0.35rem 0 0;
       font-weight: 600;
       opacity: 0.95;
+      font-size: 0.95rem;
     }
-    .cta-banner .btn-primary {
-      background: var(--yellow);
-    }
+    .cta-banner .btn-primary { flex: none; }
 
     /* FOOTER */
     footer {
-      padding: 2.5rem 0 3rem;
+      padding: 2.75rem 0 3.25rem;
       text-align: center;
     }
     footer .mark {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 0.75rem;
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 0.7rem;
       border-radius: 50%;
       border: 4px solid #fff;
       outline: 3px solid var(--ink);
@@ -649,36 +625,38 @@
     }
     footer p {
       margin: 0;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 600;
       color: var(--ink);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.4);
     }
     footer .tiny {
       margin-top: 0.4rem;
       font-family: var(--mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.08em;
-      opacity: 0.75;
+      opacity: 0.72;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 760px) {
       .nav-links a:not(.nav-cta) { display: none; }
-      .cloud { display: none; }
+      .cta-banner { justify-content: center; text-align: center; }
+      .cta-banner .copy { max-width: none; }
+      .fact {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+      .fact .val, .copy-row { justify-self: start; justify-content: flex-start; text-align: left; }
     }
   </style>
 </head>
 <body>
   <div class="sky" aria-hidden="true"></div>
   <div class="grass" aria-hidden="true"></div>
-  <div class="cloud cloud-a" aria-hidden="true"></div>
-  <div class="cloud cloud-b" aria-hidden="true"></div>
-  <div class="cloud cloud-c" aria-hidden="true"></div>
 
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#top">
-        <img src="dih.jpg" alt="" width="40" height="40" />
+        <img src="dih.jpg" alt="" width="38" height="38" />
         DIH
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -686,15 +664,15 @@
         <a href="#how-to-buy">How To Buy</a>
         <a href="#tokenomics">Tokenomics</a>
         <a href="#community">Community</a>
-        <a class="nav-cta" href="#how-to-buy">Buy DIH</a>
+        <a class="nav-cta" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0xcomingsoon" target="_blank" rel="noopener noreferrer">Buy DIH</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
     <section class="hero wrap">
-      <div>
-        <img class="hero-mascot" src="dih.jpg" alt="the dih" width="188" height="188" />
+      <div class="hero-inner">
+        <img class="hero-mascot" src="dih.jpg" alt="the dih" width="160" height="160" />
         <p class="hero-brand">Robinhood Chain</p>
         <h1>HOLD THIS <span>DIH</span></h1>
         <p class="hero-lead">
@@ -708,14 +686,14 @@
       </div>
     </section>
 
-    <section class="block" id="about">
+    <section class="block block--band" id="about">
       <div class="wrap">
         <div class="block-head">
           <p class="eyebrow">About</p>
           <h2>What is DIH?</h2>
-          <p>DIH is a culture token on Robinhood Chain with one mission: put a dih in every wallet.</p>
+          <p>A culture token on Robinhood Chain with one mission: put a dih in every wallet.</p>
         </div>
-        <div class="about-grid">
+        <div class="about-layout">
           <article class="panel about-copy">
             <h3>The whole plan, no fluff</h3>
             <p>
@@ -732,7 +710,7 @@
             </p>
           </article>
           <aside class="stat-stack">
-            <div class="panel stat">
+            <div class="panel stat stat--main">
               <div class="label">Wallets holding DIH</div>
               <div class="value" id="holder-count">105,478</div>
               <div class="sub" id="holder-sub">of 3,832,022 wallets · 2.8%</div>
@@ -740,7 +718,7 @@
             </div>
             <div class="panel stat">
               <div class="label">Chain</div>
-              <div class="value" style="font-size:1.55rem">Robinhood</div>
+              <div class="value value--sm">Robinhood</div>
               <div class="sub">Built for mass distribution</div>
             </div>
           </aside>
@@ -780,63 +758,40 @@
       </div>
     </section>
 
-    <section class="block" id="tokenomics">
+    <section class="block block--band" id="tokenomics">
       <div class="wrap">
         <div class="block-head">
           <p class="eyebrow">Tokenomics</p>
           <h2>Simple bags. Loud mission.</h2>
           <p>Fair launch energy with a distribution engine pointed at every wallet on-chain.</p>
         </div>
-        <div class="tok-grid">
-          <div class="panel pie-wrap">
-            <div class="pie" role="img" aria-label="Token allocation chart"></div>
-            <ul class="legend">
-              <li>
-                <span class="left"><span class="dot" style="background:#ff4f87"></span>Community airdrop</span>
-                <span class="pct">40%</span>
-              </li>
-              <li>
-                <span class="left"><span class="dot" style="background:#ffe14d"></span>Liquidity</span>
-                <span class="pct">25%</span>
-              </li>
-              <li>
-                <span class="left"><span class="dot" style="background:#6ec6ff"></span>Treasury / growth</span>
-                <span class="pct">20%</span>
-              </li>
-              <li>
-                <span class="left"><span class="dot" style="background:#55a832"></span>Team (vested)</span>
-                <span class="pct">15%</span>
-              </li>
-            </ul>
+        <div class="panel tok-facts tok-facts--solo">
+          <div class="fact">
+            <span>Token</span>
+            <span class="val">DIH</span>
           </div>
-          <div class="panel tok-facts">
-            <div class="fact">
-              <span>Token</span>
-              <span>DIH</span>
+          <div class="fact">
+            <span>Network</span>
+            <span class="val">Robinhood Chain</span>
+          </div>
+          <div class="fact">
+            <span>Total supply</span>
+            <span class="val">1,000,000,000 DIH</span>
+          </div>
+          <div class="fact">
+            <span>Tax</span>
+            <span class="val">0 / 0</span>
+          </div>
+          <div class="fact">
+            <span>Contract</span>
+            <div class="copy-row">
+              <span class="ca" id="contract-addr">0xcomingsoon</span>
+              <button type="button" class="copy-btn" id="copy-ca" data-ca="0xcomingsoon">Copy</button>
             </div>
-            <div class="fact">
-              <span>Network</span>
-              <span>Robinhood Chain</span>
-            </div>
-            <div class="fact">
-              <span>Total supply</span>
-              <span>1,000,000,000 DIH</span>
-            </div>
-            <div class="fact">
-              <span>Tax</span>
-              <span>0 / 0</span>
-            </div>
-            <div class="fact">
-              <span>Contract</span>
-              <div class="copy-row">
-                <span class="ca" id="contract-addr">0xDIH...HOLD</span>
-                <button type="button" class="copy-btn" id="copy-ca" data-ca="0xDIH0000000000000000000000000000000HOLD">Copy</button>
-              </div>
-            </div>
-            <div class="fact">
-              <span>Explorer</span>
-              <span><a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener noreferrer" style="color:var(--pink-deep);text-decoration:underline">Blockscout ↗</a></span>
-            </div>
+          </div>
+          <div class="fact">
+            <span>Explorer</span>
+            <a class="val" href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener noreferrer">Blockscout ↗</a>
           </div>
         </div>
       </div>
@@ -850,29 +805,23 @@
           <p>Memes, updates, and the live airdrop saga — all in one place.</p>
         </div>
         <div class="social-grid">
-          <a class="panel social x" href="https://x.com/" target="_blank" rel="noopener noreferrer">
+          <a class="panel social x" href="https://x.com/holddih_rh" target="_blank" rel="noopener noreferrer">
             <div class="icon">𝕏</div>
             <h3>Twitter / X</h3>
             <p>Announcements, holder milestones, and peak dih posting.</p>
-            <span class="go">Follow →</span>
           </a>
-          <a class="panel social tg" href="https://t.me/" target="_blank" rel="noopener noreferrer">
-            <div class="icon">✈</div>
-            <h3>Telegram</h3>
-            <p>Real-time chat with the people already holding this dih.</p>
-            <span class="go">Join →</span>
-          </a>
-          <a class="panel social dc" href="https://discord.com/" target="_blank" rel="noopener noreferrer">
+          <a class="panel social dc" href="https://dexscreener.com/robinhood/0xcomingsoon" target="_blank" rel="noopener noreferrer">
             <div class="icon">◈</div>
-            <h3>Discord</h3>
-            <p>Roles, raids, art drops, and community coordination.</p>
-            <span class="go">Enter →</span>
+            <h3>Dexscreener</h3>
+            <p>Live chart, liquidity, and market action for DIH.</p>
           </a>
         </div>
         <div class="cta-banner">
-          <h3>Everyone will hold this dih</h3>
-          <p>Don’t just watch the counter — be part of the bag.</p>
-          <a class="btn-primary" href="#how-to-buy">Buy DIH now</a>
+          <div class="copy">
+            <h3>Everyone will hold this dih</h3>
+            <p>Don’t just watch the counter — be part of the bag.</p>
+          </div>
+          <a class="btn-primary" href="https://app.uniswap.org/swap?chain=robinhood&inputCurrency=NATIVE&outputCurrency=0xcomingsoon" target="_blank" rel="noopener noreferrer">Buy DIH now</a>
         </div>
       </div>
     </section>
@@ -880,7 +829,7 @@
 
   <footer>
     <div class="wrap">
-      <img class="mark" src="dih.jpg" alt="" width="56" height="56" />
+      <img class="mark" src="dih.jpg" alt="" width="52" height="52" />
       <p>© 2026 DIH · Hold this dih on Robinhood Chain</p>
       <p class="tiny">NOT FINANCIAL ADVICE · DYOR · MEME TOKEN</p>
     </div>
@@ -910,9 +859,7 @@
           if (!res.ok) throw new Error("offline");
           var data = await res.json();
           if (typeof data.count === "number") render(data.count);
-        } catch (e) {
-          /* keep SSR-ish default */
-        }
+        } catch (e) {}
       }
 
       render(105478);
