@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en" class="__variable_49a339 __variable_898c26"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/dih.jpg"/><link rel="stylesheet" href="/_next/static/css/57bbe4988cc08f86.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-843ce61ca9b60018.js"/><script src="/_next/static/chunks/4bd1b696-c023c6e3521b1417.js" async=""></script><script src="/_next/static/chunks/255-3981a3d1f3561bd8.js" async=""></script><script src="/_next/static/chunks/main-app-2ecc3bf42ae2d122.js" async=""></script><script src="/_next/static/chunks/app/page-69e4c0d603ea141c.js" async=""></script><meta name="next-size-adjust" content=""/><meta name="hoodl-explorer" content="https://robinhoodchain.blockscout.com"/><title>DIH</title><meta name="description" content="Everyone is holding this dih."/><meta property="og:title" content="HOLD THIS DIH"/><meta property="og:description" content="The bot is airdropping a dih to every wallet on Robinhood Chain."/><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HOLD THIS DIH"/><meta name="twitter:description" content="The bot is airdropping a dih to every wallet on Robinhood Chain."/><link rel="icon" href="/icon.jpg?e47b6f128cc4a594" type="image/jpeg" sizes="380x378"/><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body><div hidden=""><!--$--><!--/$--></div><main class="dih-scope"><div class="dih-sky" aria-hidden="true"></div><div class="dih-grass" aria-hidden="true"></div><div class="dih-wrap"><section class="dih-hero"><img src="/dih.jpg" alt="the dih" class="dih-mascot" width="240" height="240"/><h1 class="dih-title">HOLD THIS <span class="dih-title-pop">DIH</span></h1><p class="dih-tagline">The bot has <b>every Robinhood wallet</b>.<br/>It’s airdropping a dih to all of them, one at a time, until the entire chain is holding this dih.</p></section><section class="dih-grid"><div class="dih-panel"><div class="dih-eyebrow">How the dih spreads</div><ol class="dih-steps"><li><span class="dih-num">1</span><span>The bot pulls <b>every holder wallet</b> on <!-- -->Robinhood Chain<!-- --> from the explorer.</span></li><li><span class="dih-num">2</span><span>It sends <b>one dih</b> to each of them in atomic batch transfers. No clicks, no consent, just dih.</span></li><li><span class="dih-num">3</span><span>Every wallet it touches becomes a holder. The number above climbs.</span></li><li><span class="dih-num">4</span><span>When there are no wallets left, <b>everyone is holding this dih</b>. That’s the whole plan.</span></li></ol></div><div class="dih-panel dih-counter-card"><div class="dih-eyebrow">Wallets now holding this dih</div><div class="counter mono" role="status" aria-label="106111 holders">106,111</div><div class="dih-progress-head"><span>106,111<!-- --> of <!-- -->3,832,022<!-- --> wallets on <!-- -->Robinhood Chain</span><span class="dih-accent">2.8<!-- -->%</span></div><div class="dih-progress-track"><div class="dih-progress-fill" style="width:2.7690603028897014%"></div></div></div></section></div><style>
+.dih-scope {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-display);
+  /* remap the dark HOODL theme vars so reused components (feed, counter)
+     recolor themselves for the light candy theme automatically */
+  --color-accent: #d6357a;
+  --color-fg: #2b2016;
+  --color-muted: #6f5b48;
+  --color-faint: #a08a76;
+  --color-border: rgba(58,42,30,0.18);
+  --color-border-2: rgba(58,42,30,0.28);
+}
+/* backdrop layers */
+.dih-scope .dih-sky {
+  position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(180deg, #6ec6ff 0%, #8fd4ff 45%, #bfe6a8 62%, #6cc24a 100%);
+}
+.dih-scope .dih-grass {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 30%; z-index: 1;
+  background: linear-gradient(180deg, #7ecb4f, #55a832);
+}
+
+.dih-scope .dih-wrap {
+  position: relative; z-index: 3;
+  max-width: 1120px; margin: 0 auto;
+  min-height: 100dvh; display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(0.6rem, 2.2vh, 1.4rem) clamp(1rem, 4vw, 2.5rem);
+}
+
+/* hero */
+.dih-scope .dih-hero { text-align: center; }
+.dih-scope .dih-mascot {
+  width: clamp(88px, 13vw, 128px); aspect-ratio: 1; object-fit: cover;
+  display: block; margin: 0 auto;
+  border-radius: 50%; border: 5px solid #fff; outline: 4px solid #3a2a1e;
+  box-shadow: 0 12px 26px -12px rgba(0,0,0,0.45);
+  animation: dihBob 3.4s ease-in-out infinite;
+}
+@keyframes dihBob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-9px) rotate(1.5deg); }
+}
+.dih-scope .dih-title {
+  font-size: clamp(2rem, 7vw, 4rem); font-weight: 900; letter-spacing: -0.04em;
+  line-height: 0.9; margin: 0.7rem 0 0;
+  color: #fff; text-shadow: 0 3px 0 #3a2a1e, 0 4px 0 #3a2a1e, 0 5px 0 #3a2a1e, 0 12px 22px rgba(0,0,0,0.25);
+}
+.dih-scope .dih-title-pop {
+  display: inline-block; color: #ffd0e0;
+  background: #ff4f87; -webkit-text-fill-color: #fff;
+  border: 4px solid #3a2a1e; border-radius: 14px; padding: 0 0.28em;
+  transform: rotate(-3deg); box-shadow: 0 5px 0 #3a2a1e;
+}
+.dih-scope .dih-tagline {
+  max-width: 620px; margin: 0.9rem auto 0;
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem); line-height: 1.45; font-weight: 600;
+  color: #2b2016; text-wrap: balance;
+  background: rgba(255,255,255,0.72); backdrop-filter: blur(2px);
+  border-radius: 14px; padding: 0.75rem 1.1rem; border: 2px solid rgba(58,42,30,0.25);
+}
+.dih-scope .dih-tagline br { display: block; content: ""; margin-bottom: 0.25rem; }
+.dih-scope .dih-tagline b { color: #d6357a; }
+
+/* counter card — shares the .dih-panel box; just centers its contents */
+.dih-scope .dih-counter-card { text-align: center; justify-content: center; }
+.dih-scope .dih-counter-card .counter { font-size: clamp(3rem, 8vw, 4.6rem) !important; }
+.dih-scope .dih-eyebrow {
+  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.2em;
+  font-size: 0.64rem; font-weight: 700; color: #9a7b5f;
+}
+/* override the reused HolderCounter's dark-theme glow for the light card */
+.dih-scope .counter {
+  color: #d6357a !important;
+  text-shadow: 0 3px 0 rgba(58,42,30,0.18) !important;
+  margin-top: 0.3rem;
+}
+.dih-scope .dih-progress-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: #7a6350;
+  margin: 1.1rem 0 0.45rem;
+}
+.dih-scope .dih-accent { color: #d6357a; }
+.dih-scope .dih-progress-track {
+  height: 14px; border-radius: 999px; background: #f0e7dd;
+  border: 3px solid #3a2a1e; overflow: hidden;
+}
+.dih-scope .dih-progress-fill {
+  height: 100%;
+  background: repeating-linear-gradient(45deg, #ff4f87 0 12px, #ff7aa6 12px 24px);
+  transition: width 900ms cubic-bezier(0.16,1,0.3,1);
+}
+
+/* grid: two equal boxes side by side */
+.dih-scope .dih-grid {
+  display: grid; gap: 1rem; grid-template-columns: 1fr; align-items: stretch;
+  margin-top: clamp(1rem, 2.6vh, 1.6rem);
+}
+@media (min-width: 820px) { .dih-scope .dih-grid { grid-template-columns: 1fr 1fr; } }
+.dih-scope .dih-panel {
+  display: flex; flex-direction: column;
+  background: #fff; border: 4px solid #3a2a1e; border-radius: 20px;
+  padding: clamp(1.1rem, 2.6vw, 1.5rem); box-shadow: 0 8px 0 -2px rgba(58,42,30,0.28);
+}
+.dih-scope .dih-steps { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+.dih-scope .dih-steps li {
+  display: flex; gap: 0.7rem; align-items: flex-start;
+  font-size: 0.92rem; line-height: 1.4; color: #2b2016; font-weight: 500;
+}
+.dih-scope .dih-steps b { color: #d6357a; }
+.dih-scope .dih-num {
+  flex: none; width: 26px; height: 26px; border-radius: 999px; font-size: 0.85rem;
+  display: grid; place-items: center; font-family: var(--font-mono); font-weight: 800;
+  background: #ffe14d; color: #3a2a1e; border: 2px solid #3a2a1e;
+}
+</style></main><!--$--><!--/$--><script src="/_next/static/chunks/webpack-843ce61ca9b60018.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n2:I[9766,[],\"\"]\n3:I[8924,[],\"\"]\n5:I[4431,[],\"OutletBoundary\"]\n7:I[5278,[],\"AsyncMetadataOutlet\"]\n9:I[4431,[],\"ViewportBoundary\"]\nb:I[4431,[],\"MetadataBoundary\"]\nc:\"$Sreact.suspense\"\ne:I[7150,[],\"\"]\nf:I[622,[],\"IconMark\"]\n:HL[\"/_next/static/media/36966cca54120369-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/558ca1a6aa3cb55e-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/57bbe4988cc08f86.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"y0ZBk1ul2WoFSM-5ZK9F1\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/57bbe4988cc08f86.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"className\":\"__variable_49a339 __variable_898c26\",\"children\":[[\"$\",\"head\",null,{\"children\":[\"$\",\"meta\",null,{\"name\":\"hoodl-explorer\",\"content\":\"https://robinhoodchain.blockscout.com\"}]}],[\"$\",\"body\",null,{\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L4\",null,[\"$\",\"$L5\",null,{\"children\":[\"$L6\",[\"$\",\"$L7\",null,{\"promise\":\"$@8\"}]]}]]}],{},null,false]},null,false],[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$L9\",null,{\"children\":\"$La\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]],[\"$\",\"$Lb\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$c\",null,{\"fallback\":null,\"children\":\"$Ld\"}]}]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$e\",[]],\"s\":false,\"S\":false}\n"])</script><script>self.__next_f.push([1,"a:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n6:null\n"])</script><script>self.__next_f.push([1,"8:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"DIH\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Everyone is holding this dih.\"}],[\"$\",\"meta\",\"2\",{\"property\":\"og:title\",\"content\":\"HOLD THIS DIH\"}],[\"$\",\"meta\",\"3\",{\"property\":\"og:description\",\"content\":\"The bot is airdropping a dih to every wallet on Robinhood Chain.\"}],[\"$\",\"meta\",\"4\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"5\",{\"name\":\"twitter:title\",\"content\":\"HOLD THIS DIH\"}],[\"$\",\"meta\",\"6\",{\"name\":\"twitter:description\",\"content\":\"The bot is airdropping a dih to every wallet on Robinhood Chain.\"}],[\"$\",\"link\",\"7\",{\"rel\":\"icon\",\"href\":\"/icon.jpg?e47b6f128cc4a594\",\"type\":\"image/jpeg\",\"sizes\":\"380x378\"}],[\"$\",\"$Lf\",\"8\",{}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"d:\"$8:metadata\"\n"])</script><script>self.__next_f.push([1,"10:I[6461,[\"974\",\"static/chunks/app/page-69e4c0d603ea141c.js\"],\"default\"]\n11:T129e,"])</script><script>self.__next_f.push([1,"\n.dih-scope {\n  position: relative;\n  min-height: 100vh;\n  overflow: hidden;\n  font-family: var(--font-display);\n  /* remap the dark HOODL theme vars so reused components (feed, counter)\n     recolor themselves for the light candy theme automatically */\n  --color-accent: #d6357a;\n  --color-fg: #2b2016;\n  --color-muted: #6f5b48;\n  --color-faint: #a08a76;\n  --color-border: rgba(58,42,30,0.18);\n  --color-border-2: rgba(58,42,30,0.28);\n}\n/* backdrop layers */\n.dih-scope .dih-sky {\n  position: fixed; inset: 0; z-index: 0;\n  background: linear-gradient(180deg, #6ec6ff 0%, #8fd4ff 45%, #bfe6a8 62%, #6cc24a 100%);\n}\n.dih-scope .dih-grass {\n  position: fixed; left: 0; right: 0; bottom: 0; height: 30%; z-index: 1;\n  background: linear-gradient(180deg, #7ecb4f, #55a832);\n}\n\n.dih-scope .dih-wrap {\n  position: relative; z-index: 3;\n  max-width: 1120px; margin: 0 auto;\n  min-height: 100dvh; display: flex; flex-direction: column; justify-content: center;\n  padding: clamp(0.6rem, 2.2vh, 1.4rem) clamp(1rem, 4vw, 2.5rem);\n}\n\n/* hero */\n.dih-scope .dih-hero { text-align: center; }\n.dih-scope .dih-mascot {\n  width: clamp(88px, 13vw, 128px); aspect-ratio: 1; object-fit: cover;\n  display: block; margin: 0 auto;\n  border-radius: 50%; border: 5px solid #fff; outline: 4px solid #3a2a1e;\n  box-shadow: 0 12px 26px -12px rgba(0,0,0,0.45);\n  animation: dihBob 3.4s ease-in-out infinite;\n}\n@keyframes dihBob {\n  0%, 100% { transform: translateY(0) rotate(-1.5deg); }\n  50% { transform: translateY(-9px) rotate(1.5deg); }\n}\n.dih-scope .dih-title {\n  font-size: clamp(2rem, 7vw, 4rem); font-weight: 900; letter-spacing: -0.04em;\n  line-height: 0.9; margin: 0.7rem 0 0;\n  color: #fff; text-shadow: 0 3px 0 #3a2a1e, 0 4px 0 #3a2a1e, 0 5px 0 #3a2a1e, 0 12px 22px rgba(0,0,0,0.25);\n}\n.dih-scope .dih-title-pop {\n  display: inline-block; color: #ffd0e0;\n  background: #ff4f87; -webkit-text-fill-color: #fff;\n  border: 4px solid #3a2a1e; border-radius: 14px; padding: 0 0.28em;\n  transform: rotate(-3deg); box-shadow: 0 5px 0 #3a2a1e;\n}\n.dih-scope .dih-tagline {\n  max-width: 620px; margin: 0.9rem auto 0;\n  font-size: clamp(0.9rem, 2.2vw, 1.05rem); line-height: 1.45; font-weight: 600;\n  color: #2b2016; text-wrap: balance;\n  background: rgba(255,255,255,0.72); backdrop-filter: blur(2px);\n  border-radius: 14px; padding: 0.75rem 1.1rem; border: 2px solid rgba(58,42,30,0.25);\n}\n.dih-scope .dih-tagline br { display: block; content: \"\"; margin-bottom: 0.25rem; }\n.dih-scope .dih-tagline b { color: #d6357a; }\n\n/* counter card — shares the .dih-panel box; just centers its contents */\n.dih-scope .dih-counter-card { text-align: center; justify-content: center; }\n.dih-scope .dih-counter-card .counter { font-size: clamp(3rem, 8vw, 4.6rem) !important; }\n.dih-scope .dih-eyebrow {\n  font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.2em;\n  font-size: 0.64rem; font-weight: 700; color: #9a7b5f;\n}\n/* override the reused HolderCounter's dark-theme glow for the light card */\n.dih-scope .counter {\n  color: #d6357a !important;\n  text-shadow: 0 3px 0 rgba(58,42,30,0.18) !important;\n  margin-top: 0.3rem;\n}\n.dih-scope .dih-progress-head {\n  display: flex; justify-content: space-between; align-items: baseline;\n  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: #7a6350;\n  margin: 1.1rem 0 0.45rem;\n}\n.dih-scope .dih-accent { color: #d6357a; }\n.dih-scope .dih-progress-track {\n  height: 14px; border-radius: 999px; background: #f0e7dd;\n  border: 3px solid #3a2a1e; overflow: hidden;\n}\n.dih-scope .dih-progress-fill {\n  height: 100%;\n  background: repeating-linear-gradient(45deg, #ff4f87 0 12px, #ff7aa6 12px 24px);\n  transition: width 900ms cubic-bezier(0.16,1,0.3,1);\n}\n\n/* grid: two equal boxes side by side */\n.dih-scope .dih-grid {\n  display: grid; gap: 1rem; grid-template-columns: 1fr; align-items: stretch;\n  margin-top: clamp(1rem, 2.6vh, 1.6rem);\n}\n@media (min-width: 820px) { .dih-scope .dih-grid { grid-template-columns: 1fr 1fr; } }\n.dih-scope .dih-panel {\n  display: flex; flex-direction: column;\n  background: #fff; border: 4px solid #3a2a1e; border-radius: 20px;\n  padding: clamp(1.1rem, 2.6vw, 1.5rem); box-shadow: 0 8px 0 -2px rgba(58,42,30,0.28);\n}\n.dih-scope .dih-steps { list-style: none; margin: 0.7rem 0 0; padding: 0; display: grid; gap: 0.6rem; }\n.dih-scope .dih-steps li {\n  display: flex; gap: 0.7rem; align-items: flex-start;\n  font-size: 0.92rem; line-height: 1.4; color: #2b2016; font-weight: 500;\n}\n.dih-scope .dih-steps b { color: #d6357a; }\n.dih-scope .dih-num {\n  flex: none; width: 26px; height: 26px; border-radius: 999px; font-size: 0.85rem;\n  display: grid; place-items: center; font-family: var(--font-mono); font-weight: 800;\n  background: #ffe14d; color: #3a2a1e; border: 2px solid #3a2a1e;\n}\n"])</script><script>self.__next_f.push([1,"4:[\"$\",\"main\",null,{\"className\":\"dih-scope\",\"children\":[[\"$\",\"div\",null,{\"className\":\"dih-sky\",\"aria-hidden\":true}],[\"$\",\"div\",null,{\"className\":\"dih-grass\",\"aria-hidden\":true}],[\"$\",\"div\",null,{\"className\":\"dih-wrap\",\"children\":[[\"$\",\"section\",null,{\"className\":\"dih-hero\",\"children\":[[\"$\",\"img\",null,{\"src\":\"/dih.jpg\",\"alt\":\"the dih\",\"className\":\"dih-mascot\",\"width\":240,\"height\":240}],[\"$\",\"h1\",null,{\"className\":\"dih-title\",\"children\":[\"HOLD THIS \",[\"$\",\"span\",null,{\"className\":\"dih-title-pop\",\"children\":\"DIH\"}]]}],[\"$\",\"p\",null,{\"className\":\"dih-tagline\",\"children\":[\"The bot has \",[\"$\",\"b\",null,{\"children\":\"every Robinhood wallet\"}],\".\",[\"$\",\"br\",null,{}],\"It’s airdropping a dih to all of them, one at a time, until the entire chain is holding this dih.\"]}]]}],[\"$\",\"section\",null,{\"className\":\"dih-grid\",\"children\":[[\"$\",\"div\",null,{\"className\":\"dih-panel\",\"children\":[[\"$\",\"div\",null,{\"className\":\"dih-eyebrow\",\"children\":\"How the dih spreads\"}],[\"$\",\"ol\",null,{\"className\":\"dih-steps\",\"children\":[[\"$\",\"li\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"dih-num\",\"children\":\"1\"}],[\"$\",\"span\",null,{\"children\":[\"The bot pulls \",[\"$\",\"b\",null,{\"children\":\"every holder wallet\"}],\" on \",\"Robinhood Chain\",\" from the explorer.\"]}]]}],[\"$\",\"li\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"dih-num\",\"children\":\"2\"}],[\"$\",\"span\",null,{\"children\":[\"It sends \",[\"$\",\"b\",null,{\"children\":\"one dih\"}],\" to each of them in atomic batch transfers. No clicks, no consent, just dih.\"]}]]}],[\"$\",\"li\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"dih-num\",\"children\":\"3\"}],[\"$\",\"span\",null,{\"children\":\"Every wallet it touches becomes a holder. The number above climbs.\"}]]}],[\"$\",\"li\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"dih-num\",\"children\":\"4\"}],[\"$\",\"span\",null,{\"children\":[\"When there are no wallets left, \",[\"$\",\"b\",null,{\"children\":\"everyone is holding this dih\"}],\". That’s the whole plan.\"]}]]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"dih-panel dih-counter-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"dih-eyebrow\",\"children\":\"Wallets now holding this dih\"}],[\"$\",\"$L10\",null,{\"initial\":106111}],[\"$\",\"div\",null,{\"className\":\"dih-progress-head\",\"children\":[[\"$\",\"span\",null,{\"children\":[\"106,111\",\" of \",\"3,832,022\",\" wallets on \",\"Robinhood Chain\"]}],[\"$\",\"span\",null,{\"className\":\"dih-accent\",\"children\":[\"2.8\",\"%\"]}]]}],[\"$\",\"div\",null,{\"className\":\"dih-progress-track\",\"children\":[\"$\",\"div\",null,{\"className\":\"dih-progress-fill\",\"style\":{\"width\":\"2.7690603028897014%\"}}]}]]}]]}]]}],[\"$\",\"style\",null,{\"children\":\"$11\"}]]}]\n"])</script></body></html>
